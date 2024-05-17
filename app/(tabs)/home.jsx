@@ -1,88 +1,100 @@
-import { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList, Image, RefreshControl, Text, View } from "react-native";
-
-import { images } from "../../constants";
-import useAppwrite from "../../lib/useAppwrite";
-import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
-import { EmptyState, SearchInput, Trending, VideoCard } from "../../components";
+import {FlatList, RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native'
+import React, {useState} from 'react'
+import {SafeAreaView} from "react-native-safe-area-context";
+import {LinearGradient} from "expo-linear-gradient";
+import {StatusBar} from "expo-status-bar";
+import {useGlobalContext} from "../../context/GlobalProvider";
+import DayCircle from "../../components/DayCircle";
+import StreakTracker from "../../context/StreakTracker";
+import CourseCard from "../../components/CourseCard";
+import useAppwrite from "../../lib/useAppWrite";
+import {getUserCourses} from "../../lib/appwrite";
+import EmptyState from "../../components/EmptyState";
 
 const Home = () => {
-  const { data: posts, refetch } = useAppwrite(getAllPosts);
-  const { data: latestPosts } = useAppwrite(getLatestPosts);
+    const {user} = useGlobalContext();
+    const {data: posts, refetch} = useAppwrite(() => getUserCourses(user.$id));
 
-  const [refreshing, setRefreshing] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = async () => {
+        setRefreshing(true);
+        await refetch();
+        setRefreshing(false);
+    };
 
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await refetch();
-    setRefreshing(false);
-  };
+    const currentStreak = StreakTracker();
+    console.log(currentStreak);
+    const currentDate = new Date();
+    const dayIndex = currentDate.getDay() + 1;
 
-  // one flatlist
-  // with list header
-  // and horizontal flatlist
+    return (
+        <SafeAreaView className=" items-center justify-center h-full ">
 
-  //  we cannot do that with just scrollview as there's both horizontal and vertical scroll (two flat lists, within trending)
+            <LinearGradient colors={["#CD36FF", "#5C0BD8", "#1F0453"]} style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                height: "115%",
+                flex: 1
+            }} end={{x: 0, y: 1}} start={{x: 1, y: 0}} className="items-center">
+                <ScrollView className="w-full flex  min-h-[85vh] " refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#fff"/>
+                }>
+                    <View className="w-full items-center  justify-center ">
+                        <Text className="font-monoton text-5xl mt-16 pt-5 text-white">Hi, {user?.username}!</Text>
+                        <View className="items-center justify-center mt-8">
+                            <Text className="text-white font-intro text-2xl ">{currentStreak} days streak</Text>
 
-  return (
-    <SafeAreaView className="bg-primary">
-      <FlatList
-        data={posts}
-        keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => (
-          <VideoCard
-            title={item.title}
-            thumbnail={item.thumbnail}
-            video={item.video}
-            creator={item.creator.username}
-            avatar={item.creator.avatar}
-          />
-        )}
-        ListHeaderComponent={() => (
-          <View className="flex my-6 px-4 space-y-6">
-            <View className="flex justify-between items-start flex-row mb-6">
-              <View>
-                <Text className="font-pmedium text-sm text-gray-100">
-                  Welcome Back
-                </Text>
-                <Text className="text-2xl font-psemibold text-white">
-                  JSMastery
-                </Text>
-              </View>
+                            <View className="flex-row mt-4">
+                                <DayCircle text='Mn'
+                                           otherStylesCircle={`ml-[0px] ${dayIndex - currentStreak + 1 <= 2 && dayIndex >= 2 ? "bg-first_grad" : ""}`}
+                                           otherStylesText={` ${dayIndex - currentStreak + 1 <= 2 && dayIndex >= 2 ? "text-white" : ""}`}/>
+                                <DayCircle text='Tu'
+                                           otherStylesCircle={`${dayIndex - currentStreak + 1 <= 3 && dayIndex >= 3 ? "bg-first_grad" : ""}`}
+                                           otherStylesText={` ${dayIndex - currentStreak + 1 <= 3 && dayIndex >= 3 ? "text-white" : ""}`}/>
+                                <DayCircle text='Wd'
+                                           otherStylesCircle={`${dayIndex - currentStreak + 1 <= 4 && dayIndex >= 4 ? "bg-first_grad" : ""}`}
+                                           otherStylesText={` ${dayIndex - currentStreak + 1 <= 4 && dayIndex >= 4 ? "text-white" : ""}`}/>
+                                <DayCircle text='Th'
+                                           otherStylesCircle={`${dayIndex - currentStreak + 1 <= 5 && dayIndex >= 5 ? "bg-first_grad" : ""}`}
+                                           otherStylesText={` ${dayIndex - currentStreak + 1 <= 5 && dayIndex >= 5 ? "text-white" : ""}`}/>
+                                <DayCircle text='Fr'
+                                           otherStylesCircle={`${dayIndex - currentStreak + 1 <= 6 && dayIndex >= 6 ? "bg-first_grad" : ""}`}
+                                           otherStylesText={` ${dayIndex - currentStreak + 1 <= 6 && dayIndex >= 6 ? "text-white" : ""}`}/>
+                                <DayCircle text='Sa'
+                                           otherStylesCircle={`${dayIndex - currentStreak + 1 <= 7 && dayIndex >= 7 ? "bg-first_grad" : ""}`}
+                                           otherStylesText={` ${dayIndex - currentStreak + 1 <= 7 && dayIndex >= 7 ? "text-white" : ""}`}/>
+                                <DayCircle text='Sn'
+                                           otherStylesCircle={`${dayIndex - currentStreak + 1 <= 1 && dayIndex >= 1 ? "bg-first_grad" : ""}`}
+                                           otherStylesText={` ${dayIndex - currentStreak + 1 <= 1 && dayIndex >= 1 ? "text-white" : ""}`}/>
+                            </View>
+                        </View>
+                        <Text className="font-patua text-[32px] text-white mt-10 mb-2 ">YOUR COURSES</Text>
 
-              <View className="mt-1.5">
-                <Image
-                  source={images.logoSmall}
-                  className="w-9 h-10"
-                  resizeMode="contain"
-                />
-              </View>
-            </View>
 
-            <SearchInput />
+                        <FlatList
+                            data={posts}
+                            keyExtractor={(item) => item.$id}
+                            renderItem={({item}) => (
+                                <CourseCard date={item.date} name={item.title} id={item.$id}/>
+                            )}
+                            ListEmptyComponent={() => (
+                                <EmptyState
+                                    subtitle="No videos found for this profile"
+                                />
+                            )}
+                        />
 
-            <View className="w-full flex-1 pt-5 pb-8">
-              <Text className="text-lg font-pregular text-gray-100 mb-3">
-                Latest Videos
-              </Text>
+                    </View>
 
-              <Trending posts={latestPosts ?? []} />
-            </View>
-          </View>
-        )}
-        ListEmptyComponent={() => (
-          <EmptyState
-            title="No Videos Found"
-            subtitle="No videos created yet"
-          />
-        )}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
-    </SafeAreaView>
-  );
-};
+                </ScrollView>
 
-export default Home;
+            </LinearGradient>
+            <StatusBar style='light'/>
+        </SafeAreaView>
+
+    )
+}
+export default Home
+const styles = StyleSheet.create({})

@@ -1,69 +1,41 @@
-import { StatusBar } from "expo-status-bar";
-import { Redirect, router } from "expo-router";
-import { View, Text, Image, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {StatusBar} from 'expo-status-bar';
+import {Button, Image, StyleSheet, Text, View} from 'react-native';
+import {Redirect, router} from "expo-router";
+import {LinearGradient} from 'expo-linear-gradient';
+import {SafeAreaView} from "react-native-safe-area-context";
+import {images} from "../constants"
+import CustomButton from "../components/CustomButton";
+import {useGlobalContext} from "../context/GlobalProvider";
 
-import { images } from "../constants";
-import { CustomButton, Loader } from "../components";
-import { useGlobalContext } from "../context/GlobalProvider";
 
-const Welcome = () => {
-  const { loading, isLogged } = useGlobalContext();
+export default function App() {
+    const {loading, isLogged} = useGlobalContext();
 
-  if (!loading && isLogged) return <Redirect href="/home" />;
+    if (!loading && isLogged) return <Redirect href="/home"/>;
 
-  return (
-    <SafeAreaView className="bg-primary h-full">
-      <Loader isLoading={loading} />
+    return (
+        <SafeAreaView className=" items-center justify-center h-full ">
+            <LinearGradient colors={["#CD36FF", "#5C0BD8", "#1F0453"]} style={{
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                height: "115%",
+            }} end={{x: 0, y: 1}} start={{x: 1, y: 0}} className="items-center justify-start">
+                <Image className="w-64 h-64 mt-48" source={images.logo} resizeMode="contain"/>
+                <Text className="font-intro mt-10 text-5xl text-white">AI Study</Text>
+                <CustomButton title="Continue with Email"
+                              containerStyles='w-5/6 mt-12'
+                              textStyles='font-intro'
+                              handlePress={() => router.push('sign-in')}
+                />
 
-      <ScrollView
-        contentContainerStyle={{
-          height: "100%",
-        }}
-      >
-        <View className="w-full flex justify-center items-center h-full px-4">
-          <Image
-            source={images.logo}
-            className="w-[130px] h-[84px]"
-            resizeMode="contain"
-          />
 
-          <Image
-            source={images.cards}
-            className="max-w-[380px] w-full h-[298px]"
-            resizeMode="contain"
-          />
+            </LinearGradient>
+            <StatusBar style='light'/>
+        </SafeAreaView>
 
-          <View className="relative mt-5">
-            <Text className="text-3xl text-white font-bold text-center">
-              Discover Endless{"\n"}
-              Possibilities with{" "}
-              <Text className="text-secondary-200">Aora</Text>
-            </Text>
+    );
+}
 
-            <Image
-              source={images.path}
-              className="w-[136px] h-[15px] absolute -bottom-2 -right-8"
-              resizeMode="contain"
-            />
-          </View>
 
-          <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
-            Where Creativity Meets Innovation: Embark on a Journey of Limitless
-            Exploration with Aora
-          </Text>
-
-          <CustomButton
-            title="Continue with Email"
-            handlePress={() => router.push("/sign-in")}
-            containerStyles="w-full mt-7"
-          />
-        </View>
-      </ScrollView>
-
-      <StatusBar backgroundColor="#161622" style="light" />
-    </SafeAreaView>
-  );
-};
-
-export default Welcome;

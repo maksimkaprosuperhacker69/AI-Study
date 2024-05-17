@@ -4,33 +4,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#161622",
-        secondary: {
-          DEFAULT: "#FF9C01",
-          100: "#FF9001",
-          200: "#FF8E01",
-        },
-        black: {
-          DEFAULT: "#000",
-          100: "#1E1E2D",
-          200: "#232533",
-        },
-        gray: {
-          100: "#CDCDE0",
-        },
+        first_grad: "#CD36FF",
+        second_grad: "#5C0BD8",
+        third_grad: "#1F0453",
+        black: "#000",
+        main:"#5C0BD8"
       },
-      fontFamily: {
-        pthin: ["Poppins-Thin", "sans-serif"],
-        pextralight: ["Poppins-ExtraLight", "sans-serif"],
-        plight: ["Poppins-Light", "sans-serif"],
-        pregular: ["Poppins-Regular", "sans-serif"],
-        pmedium: ["Poppins-Medium", "sans-serif"],
-        psemibold: ["Poppins-SemiBold", "sans-serif"],
-        pbold: ["Poppins-Bold", "sans-serif"],
-        pextrabold: ["Poppins-ExtraBold", "sans-serif"],
-        pblack: ["Poppins-Black", "sans-serif"],
-      },
+      fontFamily:{
+        intro: ["intro", "sans-serif"],
+        monoton: ["monoton", "sans-serif"],
+        patua: ["patua", "sans-serif"],
+        rubik: ["rubik", "sans-serif"],
+        rubikOne: ["rubikOne", "sans-serif"],
+      }
     },
   },
   plugins: [],
-};
+}
+

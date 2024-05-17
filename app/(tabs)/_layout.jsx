@@ -1,117 +1,115 @@
-import { StatusBar } from "expo-status-bar";
-import { Redirect, Tabs } from "expo-router";
-import { Image, Text, View } from "react-native";
+import {Image, StyleSheet, Text, View} from 'react-native'
+import React from 'react'
+import {Tabs} from "expo-router";
+import {icons} from "../../constants";
+import {LinearGradient} from "expo-linear-gradient";
 
-import { icons } from "../../constants";
-import { Loader } from "../../components";
-import { useGlobalContext } from "../../context/GlobalProvider";
 
-const TabIcon = ({ icon, color, name, focused }) => {
-  return (
-    <View className="flex items-center justify-center gap-2">
-      <Image
-        source={icon}
-        resizeMode="contain"
-        tintColor={color}
-        className="w-6 h-6"
-      />
-      <Text
-        className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
-        style={{ color: color }}
-      >
-        {name}
-      </Text>
-    </View>
-  );
-};
+const TabIcon = ({icon, color, name, focused, classNames}) => {
+    return (
+        <View className={`justify-center items-center gap-1 ${classNames}`}>
+            <Image
+                source={icon}
+                resizeMode="contain"
+                tintColor={color}
+                className="w-9 h-9"
+            />
+            <Text className={`${focused ? 'font-patua text-main' : 'font-patua text-black'} text-xs`}>{name}</Text>
+        </View>
+    )
+}
 
-const TabLayout = () => {
-  const { loading, isLogged } = useGlobalContext();
+const TabPlusBut = ({focused}) => {
+    const colors = focused ? ["#1F0453", "#5C0BD8", "#CD36FF"] : ['#5E5E5E', '#9D9D9D']
+    return (
+        <View className="justify-center items-center gap-2 b">
+            <LinearGradient colors={colors}
+                            style={{width: 70, height: 70, borderRadius: 13}}
+                            className=" justify-center items-center ">
+                <Image
+                    source={icons.plus}
+                    className="w-9 h-9 "
 
-  if (!loading && !isLogged) return <Redirect href="/sign-in" />;
+                    resizeMode="contain"
 
-  return (
-    <>
-      <Tabs
-        screenOptions={{
-          tabBarActiveTintColor: "#FFA001",
-          tabBarInactiveTintColor: "#CDCDE0",
-          tabBarShowLabel: false,
-          tabBarStyle: {
-            backgroundColor: "#161622",
-            borderTopWidth: 1,
-            borderTopColor: "#232533",
-            height: 84,
-          },
-        }}
-      >
-        <Tabs.Screen
-          name="home"
-          options={{
-            title: "Home",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.home}
-                color={color}
-                name="Home"
-                focused={focused}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="bookmark"
-          options={{
-            title: "Bookmark",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.bookmark}
-                color={color}
-                name="Bookmark"
-                focused={focused}
-              />
-            ),
-          }}
-        />
+                />
 
-        <Tabs.Screen
-          name="create"
-          options={{
-            title: "Create",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.plus}
-                color={color}
-                name="Create"
-                focused={focused}
-              />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="profile"
-          options={{
-            title: "Profile",
-            headerShown: false,
-            tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={icons.profile}
-                color={color}
-                name="Profile"
-                focused={focused}
-              />
-            ),
-          }}
-        />
-      </Tabs>
+            </LinearGradient>
 
-      <Loader isLoading={loading} />
-      <StatusBar backgroundColor="#161622" style="light" />
-    </>
-  );
-};
+        </View>
+    )
+}
+const TabsLayout = () => {
+    return (
+        <>
+            <Tabs
+                screenOptions={{
+                    tabBarShowLabel: false,
+                    tabBarActiveTintColor: "#5C0BD8",
+                    tabBarInactiveTintColor: "#CDCDE0",
+                    tabBarStyle: {
+                        position: "relative",
+                        left: '-1%',
+                        paddingTop: "4%",
+                        borderTopWidth: 4,
+                        borderLeftWidth: 4,
+                        borderRightWidth: 4,
+                        borderTopColor: '#6C12DE',
+                        borderColor: '#6C12DE',
+                        width: '102%',
+                        height: "12%",
+                        backgroundColor: 'white',
 
-export default TabLayout;
+                    }
+                }}>
+                <Tabs.Screen
+                    name="home"
+                    options={{
+                        title: 'Home',
+                        headerShown: false,
+                        tabBarIcon: ({color, focused}) => (
+                            <TabIcon
+                                icon={icons.home}
+                                name="Home"
+                                color={color}
+                                focused={focused}
+                                classNames="ml-4"
+                            />
+
+                        )
+                    }}
+                />
+                <Tabs.Screen
+                    name="create"
+                    options={{
+                        title: '',
+                        headerShown: false,
+                        tabBarIcon: ({focused}) => (
+                            <TabPlusBut focused={focused}/>
+                        )
+                    }}
+                />
+                <Tabs.Screen
+                    name="settings"
+                    options={{
+                        title: 'Settings',
+                        headerShown: false,
+                        tabBarIcon: ({color, focused}) => (
+                            <TabIcon
+                                icon={icons.settings}
+                                name="Settings"
+                                color={color}
+                                focused={focused}
+                                classNames="mr-4 "
+                            />
+
+                        )
+                    }}
+                />
+
+            </Tabs>
+        </>
+    )
+}
+export default TabsLayout
+const styles = StyleSheet.create({})

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "sora",
-    "slug": "sora",
+    "name": "test_react_78",
+    "slug": "test_react_78",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,21 +11,21 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "scheme": "sora",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "package": "com.jsm.aistudy",
+      "bundleIdentifier": "com.jsm.aistudy"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jsm.sora"
+      "package": "com.jsm.aistudy"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": ["expo-router", "expo-font"]
+    "web": {}
   }
 }
