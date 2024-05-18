@@ -5,12 +5,8 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {LinearGradient} from "expo-linear-gradient";
 import {StatusBar} from "expo-status-bar";
 import {useGlobalContext} from "../../context/GlobalProvider";
-import DayCircle from "../../components/DayCircle";
-import StreakTracker from "../../context/StreakTracker";
-import CourseCard from "../../components/CourseCard";
 import useAppwrite from "../../lib/useAppWrite";
-import {getCoursesById, getUserCourses} from "../../lib/appwrite";
-import EmptyState from "../../components/EmptyState";
+import {getCoursesById} from "../../lib/appwrite";
 import {icons} from "../../constants";
 
 
@@ -20,6 +16,7 @@ const Course = () => {
     const {course} = useLocalSearchParams();
     const {data, loading} = useAppwrite(() => getCoursesById(course))
     const [courseId, setcourseId] = useState(course || "");
+    const {setCourse} = useGlobalContext();
 
 
     return (loading ?
@@ -58,7 +55,6 @@ const Course = () => {
                 <StatusBar style='light'/>
             </SafeAreaView>
             : <SafeAreaView className=" items-center justify-center h-full ">
-
                 <LinearGradient colors={["#CD36FF", "#5C0BD8", "#1F0453"]} style={{
                     position: "absolute",
                     left: 0,
@@ -76,11 +72,8 @@ const Course = () => {
                                 className='text-xl font-intro mt-4 text-white text-center mx-2'>{data.description}</Text>
 
                             <TouchableOpacity activeOpacity={0.7} onPress={() => {
-                                if (pathname.startsWith("/summarizes")) {
-                                    router.setParams({courseId})
-                                } else {
-                                    router.push(`/summarizes/${courseId}`)
-                                }
+                                setCourse(data)
+                                router.push('/summarizes/summarize')
                             }}>
                                 <View
                                     className="w-[350px] h-[104px] bg-white justify-center items-center rounded-[22px] flex-row mt-10 mb-5"

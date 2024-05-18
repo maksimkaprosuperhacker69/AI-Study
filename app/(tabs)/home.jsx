@@ -1,4 +1,4 @@
-import {FlatList, RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native'
+import {FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native'
 import React, {useState} from 'react'
 import {SafeAreaView} from "react-native-safe-area-context";
 import {LinearGradient} from "expo-linear-gradient";
@@ -10,6 +10,8 @@ import CourseCard from "../../components/CourseCard";
 import useAppwrite from "../../lib/useAppWrite";
 import {getUserCourses} from "../../lib/appwrite";
 import EmptyState from "../../components/EmptyState";
+import { ScrollView } from 'react-native-virtualized-view'
+
 
 const Home = () => {
     const {user} = useGlobalContext();
@@ -23,7 +25,6 @@ const Home = () => {
     };
 
     const currentStreak = StreakTracker();
-    console.log(currentStreak);
     const currentDate = new Date();
     const dayIndex = currentDate.getDay() + 1;
 

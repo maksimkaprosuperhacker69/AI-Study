@@ -9,6 +9,7 @@ const GlobalProvider = ({ children }) => {
     const [isLogged, setIsLogged] = useState(false);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [course, setCourse] = useState(null);
 
     useEffect(() => {
         getCurrentUser()
@@ -37,6 +38,8 @@ const GlobalProvider = ({ children }) => {
                 user,
                 setUser,
                 loading,
+                course,
+                setCourse,
             }}
         >
             {children}

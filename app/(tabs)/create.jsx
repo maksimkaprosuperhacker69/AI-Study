@@ -49,7 +49,6 @@ const Create = () => {
 
         setUploading(true);
         try {
-            console.log(44323)
             await createVideoPost({
                 ...form,
                 userId: user.$id,
@@ -58,7 +57,6 @@ const Create = () => {
             Alert.alert("Success", "Course uploaded successfully");
             router.push("/home");
         } catch (error) {
-            console.log(error);
             Alert.alert("Error", error.message);
         } finally {
             setForm({
@@ -66,7 +64,6 @@ const Create = () => {
                 description: "",
                 file: null,
             });
-            console.log(99);
 
             setUploading(false);
         }

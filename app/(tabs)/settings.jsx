@@ -1,4 +1,4 @@
-import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native'
 import React from 'react'
 import {LinearGradient} from "expo-linear-gradient";
 import {StatusBar} from "expo-status-bar";
@@ -88,4 +88,3 @@ const Settings = () => {
     )
 }
 export default Settings
-const styles = StyleSheet.create({})
