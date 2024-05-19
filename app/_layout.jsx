@@ -26,9 +26,9 @@ const RootLayout = () => {
                 <Stack.Screen name="(auth)" options={{headerShown: false}}/>
                 <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
                 <Stack.Screen name="courses/[course]" options={{headerShown: false}}/>
-                <Stack.Screen name="summarizes/summarize" options={{headerShown: false}}/>
-                <Stack.Screen name="test/test" options={{headerShown: false}}/>
-                <Stack.Screen name="terms/terms" options={{headerShown: false}}/>
+                <Stack.Screen name="course_tabs/summarize" options={{headerShown: false}}/>
+                <Stack.Screen name="course_tabs/test" options={{headerShown: false}}/>
+                <Stack.Screen name="course_tabs/terms" options={{headerShown: false}}/>
 
             </Stack>
         </GlobalProvider>

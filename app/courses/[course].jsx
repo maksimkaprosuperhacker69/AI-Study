@@ -1,5 +1,5 @@
 import {router, useLocalSearchParams, usePathname} from "expo-router";
-import {FlatList, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native'
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native'
 import React, {useState} from 'react'
 import {SafeAreaView} from "react-native-safe-area-context";
 import {LinearGradient} from "expo-linear-gradient";
@@ -8,6 +8,7 @@ import {useGlobalContext} from "../../context/GlobalProvider";
 import useAppwrite from "../../lib/useAppWrite";
 import {getCoursesById} from "../../lib/appwrite";
 import {icons} from "../../constants";
+import CustomButton from "../../components/CustomButton";
 
 
 const Course = () => {
@@ -73,7 +74,7 @@ const Course = () => {
 
                             <TouchableOpacity activeOpacity={0.7} onPress={() => {
                                 setCourse(data)
-                                router.push('/summarizes/summarize')
+                                router.push('/course_tabs/summarize')
                             }}>
                                 <View
                                     className="w-[350px] h-[104px] bg-white justify-center items-center rounded-[22px] flex-row mt-10 mb-5"
@@ -88,11 +89,8 @@ const Course = () => {
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.7} onPress={() => {
-                                if (pathname.startsWith("/test")) {
-                                    router.setParams({courseId})
-                                } else {
-                                    router.push(`/test/${courseId}`)
-                                }
+                                setCourse(data)
+                                router.push('/course_tabs/test')
                             }}>
                                 <View
                                     className="w-[350px] h-[104px] bg-white justify-center items-center rounded-[22px] flex-row mt-6 mb-5"
@@ -107,11 +105,8 @@ const Course = () => {
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity activeOpacity={0.7} onPress={() => {
-                                if (pathname.startsWith("/terms")) {
-                                    router.setParams({courseId})
-                                } else {
-                                    router.push(`/terms/${courseId}`)
-                                }
+                                setCourse(data)
+                                router.push('/course_tabs/terms')
                             }}>
                                 <View
                                     className="w-[350px] h-[104px] bg-white justify-center items-center rounded-[22px] flex-row mt-6 mb-5"
@@ -125,7 +120,11 @@ const Course = () => {
 
                                 </View>
                             </TouchableOpacity>
-
+                            <CustomButton title='Back' containerStyles='w-[60%]  rounded-2xl mt-10'
+                                          textStyles='font-intro text-second_grad'
+                                          handlePress={() => {
+                                              router.push("../(tabs)/home")
+                                          }}/>
 
                         </View>
 

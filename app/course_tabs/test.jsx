@@ -7,7 +7,7 @@ import {getCoursesById} from "../../lib/appwrite";
 
 const Test = () => {
     const {courseId} = useLocalSearchParams();
-    const {data, loading} = useAppwrite(() => getCoursesById(course))
+    const {data, loading} = useAppwrite(() => getCoursesById(courseId))
     return (
         <SafeAreaView className="justify-center h-full items-center text-white">
             <View>

@@ -10,12 +10,12 @@ import CourseCard from "../../components/CourseCard";
 import useAppwrite from "../../lib/useAppWrite";
 import {getUserCourses} from "../../lib/appwrite";
 import EmptyState from "../../components/EmptyState";
-import { ScrollView } from 'react-native-virtualized-view'
+import {ScrollView} from 'react-native-virtualized-view';
 
 
 const Home = () => {
     const {user} = useGlobalContext();
-    const {data: posts, refetch} = useAppwrite(() => getUserCourses(user.$id));
+    const {data: posts, loading, refetch} = useAppwrite(() => getUserCourses(user.$id));
 
     const [refreshing, setRefreshing] = useState(false);
     const onRefresh = async () => {
@@ -29,6 +29,7 @@ const Home = () => {
     const dayIndex = currentDate.getDay() + 1;
 
     return (
+
         <SafeAreaView className=" items-center justify-center h-full ">
 
             <LinearGradient colors={["#CD36FF", "#5C0BD8", "#1F0453"]} style={{
@@ -74,19 +75,35 @@ const Home = () => {
                         <Text className="font-patua text-[32px] text-white mt-10 mb-2 ">YOUR COURSES</Text>
 
 
-                        <FlatList
-                            data={posts}
-                            keyExtractor={(item) => item.$id}
-                            renderItem={({item}) => (
-                                <CourseCard date={item.date} name={item.title} id={item.$id}/>
-                            )}
-                            ListEmptyComponent={() => (
-                                <EmptyState
-                                    subtitle="No videos found for this profile"
-                                />
-                            )}
-                        />
-
+                        {loading ?
+                            <View>
+                                <View
+                                    className="w-[350px] h-[104px] bg-white justify-start items-center rounded-[22px] mb-5 opacity-50">
+                                </View>
+                                <View
+                                    className="w-[350px] h-[104px] bg-white justify-start items-center rounded-[22px] mb-5 opacity-50">
+                                </View>
+                                <View
+                                    className="w-[350px] h-[104px] bg-white justify-start items-center rounded-[22px] mb-5 opacity-50">
+                                </View>
+                                <View
+                                    className="w-[350px] h-[104px] bg-white justify-start items-center rounded-[22px] mb-5 opacity-50">
+                                </View>
+                                
+                            </View>
+                            : <FlatList
+                                data={posts}
+                                keyExtractor={(item) => item.$id}
+                                renderItem={({item}) => (
+                                    <CourseCard date={item.date} name={item.title} id={item.$id}/>
+                                )}
+                                ListEmptyComponent={() => (
+                                    <EmptyState
+                                        subtitle="No videos found for this profile"
+                                    />
+                                )}
+                            />
+                        }
                     </View>
 
                 </ScrollView>
