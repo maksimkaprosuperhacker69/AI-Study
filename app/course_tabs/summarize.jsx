@@ -5,7 +5,7 @@ import {useGlobalContext} from "../../context/GlobalProvider";
 import {LinearGradient} from "expo-linear-gradient";
 import {StatusBar} from "expo-status-bar";
 import LottieView from 'lottie-react-native';
-import useAppwrite from "../../lib/useAppWrite";
+import useAppwrite from "../../lib/useAppwrite";
 import {useApi} from "../../lib/appwrite";
 import CustomButton from "../../components/CustomButton";
 import {router, usePathname} from "expo-router";

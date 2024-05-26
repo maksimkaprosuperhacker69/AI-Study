@@ -22,6 +22,7 @@ const EmptyState = ({subtitle}) => {
                 title="Create"
                 handlePress={() => router.push("/create")}
                 containerStyles="w-full my-5"
+                textStyles="font-intro"
             />
         </View>
     );

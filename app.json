@@ -26,6 +26,10 @@
       },
       "package": "com.jsm.aistudy"
     },
-    "web": {}
+    "web": {},
+    "plugins": [
+      "expo-font",
+      "expo-router"
+    ]
   }
 }

@@ -22,12 +22,7 @@ const Create = () => {
     });
 
     const openPicker = async (selectType) => {
-        const result = await DocumentPicker.getDocumentAsync({
-            type:
-                selectType === "image"
-                    ? ["image/png", "image/jpg"]
-                    : ["application/pdf", "application/txt"],
-        });
+        const result = await DocumentPicker.getDocumentAsync();
 
         if (!result.canceled) {
             setForm({

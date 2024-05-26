@@ -1,9 +1,9 @@
 import {ScrollView, Text, View} from 'react-native'
 import React from 'react'
-import {router, useLocalSearchParams, usePathname} from "expo-router";
+import {router, usePathname} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
-import useAppwrite from "../../lib/useAppWrite";
-import {getCoursesById, useApi} from "../../lib/appwrite";
+import useAppwrite from "../../lib/useAppwrite";
+import {useApi} from "../../lib/appwrite";
 import {LinearGradient} from "expo-linear-gradient";
 import {StatusBar} from "expo-status-bar";
 import LottieView from "lottie-react-native";

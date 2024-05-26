@@ -8,6 +8,7 @@ import CustomButton from "../../components/CustomButton";
 import {Link, router} from "expo-router";
 import {createUser} from "../../lib/appwrite";
 import {useGlobalContext} from "../../context/GlobalProvider";
+import {StatusBar} from "expo-status-bar";
 
 const SignUp = () => {
     const {setUser, setIsLogged} = useGlobalContext();
@@ -104,6 +105,7 @@ const SignUp = () => {
 
                 </ScrollView>
             </LinearGradient>
+            <StatusBar style='light'/>
         </SafeAreaView>
 
     )

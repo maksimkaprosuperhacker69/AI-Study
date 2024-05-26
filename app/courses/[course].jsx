@@ -5,7 +5,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {LinearGradient} from "expo-linear-gradient";
 import {StatusBar} from "expo-status-bar";
 import {useGlobalContext} from "../../context/GlobalProvider";
-import useAppwrite from "../../lib/useAppWrite";
+import useAppwrite from "../../lib/useAppwrite";
 import {getCoursesById} from "../../lib/appwrite";
 import {icons} from "../../constants";
 import CustomButton from "../../components/CustomButton";

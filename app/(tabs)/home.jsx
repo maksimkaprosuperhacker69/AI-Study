@@ -7,7 +7,7 @@ import {useGlobalContext} from "../../context/GlobalProvider";
 import DayCircle from "../../components/DayCircle";
 import StreakTracker from "../../context/StreakTracker";
 import CourseCard from "../../components/CourseCard";
-import useAppwrite from "../../lib/useAppWrite";
+import useAppwrite from "../../lib/useAppwrite";
 import {getUserCourses} from "../../lib/appwrite";
 import EmptyState from "../../components/EmptyState";
 import {ScrollView} from 'react-native-virtualized-view';
