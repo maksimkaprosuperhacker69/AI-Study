@@ -16,7 +16,7 @@ const CustomButton = ({
             }`}
             disabled={isLoading}
         >
-            <Text className={`text-primary  text-lg ${textStyles}`}>
+            <Text className={`text-lg ${textStyles}`}>
                 {title}
             </Text>
 

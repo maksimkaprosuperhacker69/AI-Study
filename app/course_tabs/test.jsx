@@ -10,12 +10,13 @@ import CustomButton from "../../components/CustomButton";
 import {StatusBar} from "expo-status-bar";
 import LottieView from "lottie-react-native";
 import TestCard from "../../components/TestCard"
+import CourseCard from "../../components/CourseCard";
+import EmptyState from "../../components/EmptyState";
 
 const Test = () => {
     const {course} = useGlobalContext();
     const pathname = usePathname();
     const {data, loading} = useAppwrite(() => useApi('test', course.file, course.$id))
-    console.log(data)
     return (!loading ?
             <SafeAreaView className=" items-center justify-center h-full ">
 
@@ -27,18 +28,30 @@ const Test = () => {
                     height: "115%",
                     flex: 1
                 }} end={{x: 0, y: 1}} start={{x: 1, y: 0}} className="items-center">
+
                         <View className="w-full items-center  justify-center ">
-                            <Text className='text-4xl font-intro mt-16 text-white text-center'>{data[0].question}</Text>
-                            <CustomButton title='Back' containerStyles='w-[60%]  rounded-2xl'
-                                          textStyles='font-intro'
-                                          handlePress={() => {
-                                              if (pathname.startsWith("/courses")) {
-                                                  router.setParams({course})
-                                              } else {
-                                                  router.push(`/courses/${course.$id}`)
-                                              }
-                                          }}/>
+
+                            <FlatList
+                                data={JSON.parse(data).questions}
+                                keyExtractor={(item) => item.number_question}
+                                renderItem={({item}) => (
+                                    <TestCard question={item.question} option_1={item.options[0]} option_2={item.options[1]} option_3={item.options[2]}/>
+                                )}
+                                ListFooterComponent={
+                                <View className="items-center  justify-center">
+                                    <CustomButton title='Submit' textStyles="font-intro text-xl" containerStyles="w-[200px] mb-10"/>
+                                    </View>
+                                }
+                                ListHeaderComponent={
+                                <View className="items-center  justify-center">
+                                <Text className="font-intro text-white text-5xl mt-14 mb-6">Test</Text>
+                                </View>
+                            }
+
+
+                            />
                         </View>
+
 
 
                 </LinearGradient>

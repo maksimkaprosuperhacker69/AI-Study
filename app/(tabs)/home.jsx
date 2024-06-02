@@ -91,7 +91,8 @@ const Home = () => {
                                 </View>
                                 
                             </View>
-                            : <FlatList
+                            :
+                            <FlatList
                                 data={posts}
                                 keyExtractor={(item) => item.$id}
                                 renderItem={({item}) => (

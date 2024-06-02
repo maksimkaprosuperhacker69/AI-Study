@@ -32,7 +32,7 @@ const Terms = () => {
                         <View className="w-full items-center  justify-center ">
                             <Text className='text-4xl font-intro mt-16 text-white text-center'>Terms</Text>
                             <View
-                                className=" items-center  justify-center bg-white opacity-60 mb-10 mt-6 py-5 mx-1 rounded-3xl">
+                                className=" items-center  justify-center bg-white opacity-60 mb-6 mt-6 py-5 mx-1 rounded-3xl">
                                 <Text className='text-[16px] font-rubikOne  text-black  mx-4'>
                                     {data}</Text>
                             </View>
