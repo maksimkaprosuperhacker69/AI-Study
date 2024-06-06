@@ -1,21 +1,22 @@
-import {FlatList, ScrollView, Text, View} from 'react-native'
+import {Alert, FlatList, ScrollView, Text, View} from 'react-native'
 import React from 'react'
 import {router, useLocalSearchParams, usePathname} from "expo-router";
 import {SafeAreaView} from "react-native-safe-area-context";
 import useAppwrite from "../../lib/useAppwrite";
-import {getCoursesById, useApi} from "../../lib/appwrite";
+import {createVideoPost, getCoursesById, useApi} from "../../lib/appwrite";
 import {useGlobalContext} from "../../context/GlobalProvider";
 import {LinearGradient} from "expo-linear-gradient";
 import CustomButton from "../../components/CustomButton";
 import {StatusBar} from "expo-status-bar";
 import LottieView from "lottie-react-native";
 import TestCard from "../../components/TestCard"
-import CourseCard from "../../components/CourseCard";
-import EmptyState from "../../components/EmptyState";
 
 const Test = () => {
     const {course} = useGlobalContext();
     const pathname = usePathname();
+    const submit = async () => {
+        router.push('/course_tabs/results')
+    };
     const {data, loading} = useAppwrite(() => useApi('test', course.file, course.$id))
     return (!loading ?
             <SafeAreaView className=" items-center justify-center h-full ">
@@ -39,7 +40,7 @@ const Test = () => {
                                 )}
                                 ListFooterComponent={
                                 <View className="items-center  justify-center">
-                                    <CustomButton title='Submit' textStyles="font-intro text-xl" containerStyles="w-[200px] mb-10"/>
+                                    <CustomButton title='Submit' textStyles="font-intro text-xl" containerStyles="w-[200px] mb-10" handlePress={submit}/>
                                     </View>
                                 }
                                 ListHeaderComponent={

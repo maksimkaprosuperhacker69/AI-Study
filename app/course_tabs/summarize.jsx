@@ -36,7 +36,7 @@ const Summarize = () => {
                             <View className="w-full items-center  justify-center ">
                                 <Text className='text-4xl font-intro mt-24 text-white text-center'> Summarize</Text>
                                 <View
-                                    className=" py-6 items-center  justify-center bg-white opacity-60  my-6 mx-2 rounded-3xl">
+                                    className=" py-6 items-center  justify-center bg-white   my-6 mx-2 rounded-3xl">
                                     <Text className='text-[16px] font-rubikOne  text-black  mx-4'>{data}</Text>
                                 </View>
                             </View>
